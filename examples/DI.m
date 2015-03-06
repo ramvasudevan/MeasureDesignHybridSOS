@@ -11,7 +11,7 @@ num_points=50;
 
 prob_options.Uconstant=1;
 prob_options.Utimedep=1;
-prob_options.num_added=1;
+prob_options.num_added=0;
 prob_options.T=T;
 
 num_added=prob_options.num_added;
@@ -23,7 +23,7 @@ t = msspoly( 't', 1 );
 x{ 1 }   = msspoly( 'xa', 2);
 f{ 1 }   = [x{1}(2); 0];
 g{ 1 }   = [ 0; 1 ];
-h{ 1 }   = x{1}(1);
+h{ 1 }   = x{1};
 
 % auxiliary variables
 hX{ 1 }  = [1.6^2-x{1}'*x{1}];
@@ -36,7 +36,7 @@ hXT{ 1 } = -x{1}'*x{1};
 dl{ 1 }    = boxMoments( x{ 1 }, Rx( :, 1 ), Rx( :, 2 ) );
 
 % run the code
-[w,x,u] = DI_SOS(t,x,f,g,h,hX,hXT,dl,degree,freeFinalTime,prob_options);
+[w,v,x,u] = DI_SOS(t,x,f,g,h,hX,hXT,dl,degree,freeFinalTime,prob_options);
 
 %% 
 if num_added==1

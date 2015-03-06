@@ -42,7 +42,7 @@ hXT{ 1 } = .01-x{1}'*x{1};
 dl{ 1 }    = boxMoments( x{ 1 }, Rx( :, 1 ), Rx( :, 2 ) );
 
 % run the code
-[w,x,u] = DI_SOS(t,x,f,g,h,hX,hXT,dl,degree,freeFinalTime,prob_options);
+[w,v,x,u] = DI_SOS(t,x,f,g,h,hX,hXT,dl,degree,freeFinalTime,prob_options);
 
 %% 
 if num_added==1
@@ -56,8 +56,12 @@ if num_added==1
     isosurface(X1,X2,X3,reshape(full(Wrestr),size(X1)),1);
     hold on
 else
-    [X1,X2]=meshgrid(linspace(Rx(1,1),Rx(1,2),101));
+    x1=linspace(Rx(1,1),Rx(1,2),101);
+    [X1,X2]=meshgrid(x1);
     Wrestr = msubs(w{1},x{1},[X1(:) X2(:) zeros(numel(X1)*num_added,num_added)]');
+    figure(1);
+    surf(linspace(Rx(1,1),Rx(1,2),101),x1,reshape(Wrestr,size(X1)));
+    figure(2);
     [xv,v]=contour(X1(1,:),X1(1,:),reshape(Wrestr,size(X1)),[1 1],'r');
     hold on
 end

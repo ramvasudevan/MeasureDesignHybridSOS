@@ -1,4 +1,4 @@
-function [w,x,u] = DI_SOS(t,x,f,g,h,hX,hXT,dl,degree,freeFinalTime,prob_options)
+function [w,v,x,u] = DI_SOS(t,x,f,g,h,hX,hXT,dl,degree,freeFinalTime,prob_options)
 %
 %  t        -- 1-by-1 msspoly.
 %  x{i}     -- n_i-by-1 free msspoly ( \forall i \in {1,...,nModes} )
@@ -7,7 +7,7 @@ function [w,x,u] = DI_SOS(t,x,f,g,h,hX,hXT,dl,degree,freeFinalTime,prob_options)
 %  h{i}     -- m_i msspoly in x{i} (output function)
 %  dl{i}    -- function mapping n_i-by-1 msspoly's into n-by-1 double.
 %  degree   -- positive scalar integer
-%  prob_optins -> Uconstant,Utimedep,num_added
+%  prob_options -> Uconstant, Utimedep, num_added, Uscale, Xscale, T
 %
 %  Computes an outerapproximation to the BRS for:
 %
@@ -47,9 +47,37 @@ end
 if ~isfield(prob_options,'Uscale')
     prob_options.Uscale=1;
 end
+if ~isfield(prob_options,'Xscale')
+    prob_options.Xscale=ones(length(x{1}),1);
+end
+
 
 T=prob_options.T;
 num_added=prob_options.num_added;
+
+%---
+% x and T -scaling
+Xscale=prob_options.Xscale;
+XTscale=[T;Xscale];
+if ~isdouble(f{1})
+    [k_a,k_b,k_c]=decomp(f{1});
+    k_o=match([t;x{1}],k_a);
+    multip=power(repmat(XTscale(k_o)',size(k_b,1),1),k_b);
+    k_cnew=bsxfun(@times,k_c,prod(multip,2)');
+    f{1}=recomp(k_a,k_b,k_cnew);
+    f{1}=inv(diag(Xscale))*f{1}; % final scaling by T is performed below
+end
+
+if ~isdouble(g{1})
+    [k_a,k_b,k_c]=decomp(g{1}(:));
+    k_o=match([t;x{1}],k_a);
+    multip=power(repmat(XTscale(k_o)',size(k_b,1),1),k_b);
+    k_cnew=bsxfun(@times,k_c,prod(multip,2)');
+    g{1}=reshape(recomp(k_a,k_b,k_cnew),size(g{1},1),size(g{1},2));
+    g{1}=inv(diag(Xscale))*g{1}; % final scaling by T is performed below
+end
+
+%---
 
 % adding auxiliary variables
 z{1} = msspoly('za',prob_options.num_added);
@@ -97,7 +125,7 @@ for i = 1:nModes
     % that L_fv is of degree 2k
     
 %     [k_a,k_b,k_c]=decomp(f{1});
-%     keyboard
+    keyboard
 %     k_d=match(k_a,[t;x{1}]);
 %     k_e=find(k_d~=0);
 %     max_k=max(sum(k_b(:,k_d(k_e)),2));
@@ -172,11 +200,18 @@ options.verbose = 1;
 
 % actually solve the problem
 sol = prog.minimize( obj, @spot_mosek_sos, options );
+[flag,idx]=sol.checkSOSsolutions();
 
+if ~flag
+    disp('SOS constraint violation!')
+end
 putvar(sol)
-
+i=1;
 % construct w{i}
     w{ i } = sol.eval( w{ i } );
+    
+% constuct v{i}
+    v{i}=sol.eval(v{i});
 % construct u{i}
 
 M_mu=sol.sosDual(sol.prog.sosTokens(1));
