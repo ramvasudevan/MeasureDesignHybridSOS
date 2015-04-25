@@ -1,0 +1,222 @@
+\documentclass[dvipsnames]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{tcolorbox}
+\usepackage{ragged2e}
+\definecolor{mycolor}{rgb}{0.122, 0.435, 0.698}
+%\newtcolorbox{mybox}{colback=red!5!white,colframe=red!75!black}
+
+\newtcolorbox{mybox}{colback=mycolor!10}
+\newtcolorbox{mybox_red}{colback=red!10}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{fact}{Fact}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{.1in}
+\providecommand{\supp}{\ensuremath \text{supp }}
+\providecommand{\R}{\ensuremath \mathbb{R}}
+\providecommand{\N}{\ensuremath \mathbb{N}}
+\providecommand{\ip}[1]{\ensuremath \langle #1 \rangle}
+\providecommand{\eq}[1]{\ensuremath\stackrel{#1}{=}}
+\begin{document}
+ \title{Output feedback control synthesis for a class of polynomial systems}
+  \author{}
+  \date{}
+  \maketitle
+%  \justify
+{\bf Full State-feedback : Primal problem} ({\bf P$_f$})
+\begin{flalign*}
+&\supp\,\mu_0(X)\\
+&\text{subject to}\\
+    &&\,\mathcal L_f'\mu+\mathcal L_g'(\sigma^+-\sigma^-)+\delta_0\times \mu_0=&\,\delta_T\times \mu_T\\
+    &&\,[\sigma^+]_k+[\sigma^-]_k+[\hat\sigma]_k=&\,\mu&\,\forall k\in\{1,\,\ldots,\,m\}\\
+    &&\,\mu_0+\hat \mu_0=&\,\lambda\\
+    &&[\sigma^+]_k,\,[\sigma^-]_k,\,[\hat \sigma]_k\ge&\, 0&\,\forall k\in\{1,\,\ldots,\,m\}\\
+    &&\mu,\,\mu_0,\,\hat\mu,\,\mu_T\ge&\, 0\\
+    &&\supp(\mu_T)\subset X_T\\
+    &&\supp(\mu_0)\subset X_1\times X_2\\
+    &&\supp(\hat \mu_0)\subset X_1\times X_2\\
+    &&\supp(\mu)\subset T\times X_1\times X_2
+\end{flalign*}
+
+{\bf Partial State-feedback : Primal problem} ({\bf P$_p$})
+\begin{flalign*}
+&\supp\,\mu_0(X)\\
+&\text{subject to}\\
+    &&\,\mathcal L_f'\mu+\mathcal L_g'(\sigma^+-\sigma^-)+\delta_0\times \mu_0=&\,\delta_T\times \mu_T\\
+    &&\,[\sigma^+]_k+[\sigma^-]_k+[\hat\sigma]_k=&\,\mu&\,\forall k\in\{1,\,\ldots,\,m\}\\
+    && d\nu^*(x_2|t,x_1)d\pi_{t,x_1}\mu=&\,d\mu\\
+    && d\nu^*(x_2|t,x_1)d\pi_{t,x_1}([\sigma^+]_k-[\sigma^-]_k)=&\,d([\sigma^+]_k-[\sigma^-]_k)&\,\forall k\in\{1,\,\ldots,\,m\}\\
+%    &&\,\mu_0+\hat \mu_0=&\,\lambda\\
+    &&[\sigma^+]_k,\,[\sigma^-]_k,\,[\hat \sigma]_k\ge&\, 0&\,\forall k\in\{1,\,\ldots,\,m\}\\
+    &&\mu,\,\mu_0,\,\hat\mu,\,\mu_T\ge&\, 0\\
+    &&\supp(\mu_T)\subset X_T\\
+    &&\supp(\mu_0)\subset X_1\times X_2\\
+    &&\supp(\hat \mu_0)\subset X_1\times X_2\\
+    &&\supp(\mu)\subset T\times X_1\times X_2
+\end{flalign*}
+where $\mu^*$ is the optimal solution to {\bf P$_f$} and $d\mu^*=d\nu^*(x_2|t,x_1)d\pi_{t,x_1}\mu^*(t,x_1)$.
+
+\newpage
+{\bf Partial State-feedback : Dual problem} ({\bf D$_p$})\\
+In the dual formulation below, let \textcolor{red}{$\phi\colon C_c(T\times X_1\times X_2)\rightarrow C_c(T\times X_1)$} be the functional representation of integrating-out the conditional $\nu^*(x_2|t,x_1)$; i.e.
+\begin{flalign*}
+  &&(\phi\circ v)(t,x_1,x_2)=&\,\int_{X_2}v(t,x_1,x_2)\,d\nu^*(x_2|t,x_1).\,&\forall v\in C_c(T\times X_1\times X_2)
+\end{flalign*}
+%Observe that $\phi$ is a linear function.\par%%
+\underline{The dual:}
+\begin{flalign*}
+&\inf\,\ip{\lambda,w}\\
+&\text{subject to}\\
+    &&\phi\circ\mathcal L_fv+\sum_{k=1}^m \phi\circ[p]_k\,\le&0\\
+    &&w- v(0,\cdot)-1\ge&\, 0\\
+    &&v(T,\cdot)\ge &\,0\\
+    &&w\ge&\, 0\\
+    &&\phi\circ[p]_k\ge& \,0,\phantom{10}\phi\circ[p]_k\ge \,|\phi\circ[\mathcal L_gv]_k|&\,\forall k\in\{1,\,\ldots,\,m\}
+\end{flalign*}
+where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\times X_1\times X_2),\,q\in C(T\times X_1\times X_2)$.
+
+\centering{\rule{.5\columnwidth}{1pt}}
+\begin{lemma}[Sufficiency]
+\label{lemma:sufficiency}
+    Let $\mu$ and $\sigma$ be radon measures on the product space $X_1\times X_2$ such that $\sigma \ll \mu$, where $X_1$ and $X_2$ are Polish spaces. Then each measure can be decomposed as follows
+    \begin{align}
+    \begin{aligned}
+        d\mu=&\,d\nu_{\mu}(x_2|x_1)d\pi_{x_1}\mu(x_1)\\
+        d\sigma=&\,d\nu_{\sigma}(x_2|x_1)d\pi_{x_1}\sigma(x_1).
+        \end{aligned},
+        \label{eqn:polish:decomp}
+    \end{align}
+    where $\pi_{x_1}\mu$ is the $x_1$ marginal of $\mu$. If $d\nu_\sigma(x_2|x_1)=d\nu_{\mu}(x_2|x_1)$, then the Radon-Nikodym derivative $\dfrac{d\sigma}{d\mu}$ is not a function of $x_2$.
+    \par
+    Additionally, if $\sigma$ and $\mu$ satisfy the above conditions with $\mu\ge 0$, $\exists\, \hat\sigma\ge 0$ such that 
+    \begin{align}
+      \sigma+\hat\sigma=\mu\label{lemma:sufficiency:domination:equality}
+    \end{align}
+    and $d\hat\sigma=d\nu_\mu(x_2|x_1)\,d\hat{\bar\sigma}$. That is, the regular conditional of $\hat \sigma$ given $x_1$ is identical to that of $\mu$ and $\sigma$.
+\end{lemma}
+\begin{proof}
+  That each measure can be decomposed as in Eqn.~(\ref{eqn:polish:decomp}) follows from a standard result in measure theory [Bogachev] and hence we concentrate on the Radon-Nikodym derivative. Since $\sigma\ll \mu$, from the definition of marginals, $\pi_{x_1}\sigma\ll \pi_{x_1}\mu$; let $d\pi_{x_1}\sigma=\phi(x_1)\,d\pi_{x_1}\mu$.\par
+  Consider an arbitrary test function $v(x_1,x_2)$; then the following equalities holds by definition.
+  \begin{align*}
+    g(x_1):=\int_{X_2}v(x_1,x_2)\,d\nu_{\sigma}(x_2|x_1)=\int_{X_2}v(x_1,x_2)\,d\nu_{\mu}(x_2|x_1)
+  \end{align*}
+  \begin{align*}
+    \int_{X_1\times X_2} v(x_1,x_2)\,d\sigma=&\,\int_{X_1}g(x_1)\,d\pi_{x_1}\sigma(x_1)\\
+    =&\,\int_{X_1\times X_2}\phi(x_1)\,g(x_1)\,d\pi_{x_1}\mu(x_1)\\
+    =&\,\int_{X_1\times X_2} \phi(x_1)\,v(x_1,x_2)\,d\mu
+  \end{align*}
+  Thus $d\sigma=\phi(x_1)\,d\mu$ and the Radon-Nikodym derivative is not a function of $x_2$.
+  \par
+  The existence of $\hat\sigma \ge 0$ such that Eqn.~(\ref{lemma:sufficiency:domination:equality}) holds since $\sigma\ll\mu$. Additionally, as $\sigma$ and $\mu$ share the same conditional with respect to $x_1$, $\sigma$ admits the following decomposition.
+  \begin{align*}
+    d\hat \sigma=&\,d\nu(x_2|x_1)\,d(\pi_{x_1}\mu-\pi_{x_1}\sigma)(x_1)\\
+    =&\,d\nu(x_2|x_1)\,d\hat{\bar\sigma}(x_1)
+  \end{align*}
+\end{proof}
+%%%%
+
+%\flushleft
+
+%%%%
+\begin{lemma}
+    The solution to the primal problem characterizes the BRS when using partial state-feedback control.
+\label{lemma:BRS}
+\end{lemma}
+\begin{proof}
+In this proof, we consider the special case of single input control; a more general version follows naturally. For convenience, denote by $\mathcal U_s$ and $\mathcal U_p$ respectively, the set of all admissible state-feedback and partial-state-feedback control laws; by definition, $\mathcal U_p\subseteq \mathcal U_s$. Similarly, let $\mathcal X_s$ and $\mathcal X_p$ represent the collection of admissible state trajectories; $\mathcal X_p\subseteq \mathcal X_s$.\par
+By definition, for any initial condition $x_0\in \mathcal{X}$, there exists a partial state-feedback control law $u(t,x_1)$ such that the resulting state trajectory is admissible. Thus, for any initial measure $\mu_0$, there exist measures $\mu,\,\mu_T,\sigma^+,\,\sigma^-$ and $\hat \sigma$ which satisfy the following constraints
+\begin{flalign*}
+  &&\,\delta_{T}\times \mu_T=&\,\delta_{0}\times\mu_0+\mathcal L_{f}'\mu+\mathcal L_g'(\sigma^+-\sigma^-)&\\
+  &&\,\sigma^++\sigma^-+\hat\sigma=&\,\mu
+\end{flalign*}
+such that $\mu_0,\,\sigma^+,\,\sigma^-,\,\hat\sigma,\,\mu_T,\,\mu\ge 0,\,\supp(\mu_0)\subset\mathcal X,\,\supp(\mu_T)\subset X_T$ and $\supp(\mu)\subset T\times X_1\times X_2$. This assertion follows from applying the result in \cite[Lemma 1]{Henrion} to the state-feedback problem posed in \cite{Anirudha} for any feasible trajectory and reviewing the relation between $\mathcal U_s$ and $\mathcal U_p$, and $\mathcal X_s$ and $\mathcal X_p$.\par
+ Since the Euclidean space is Polish and hence Suslin, and separable, it follows that $\mu$ can be decomposed as follows \cite[Corollary 10.4.13]{bogachev_v2}
+\begin{align*}
+    d\mu=&\,d\nu(x_2|t,x_1)\,d\pi_{t,x_1}\mu(t,x_1).
+\end{align*}
+Now, since the occupation measure can be interpreted as the time spent in the region of the product space, naturally, the $(t,x_1)$ marginal ($\pi_{t,x_1}\mu$), is the total time spent by all feasible state trajectories in a slice of the product space; and $\nu(x_2|t,x_1)$ can be interpreted as measure of how well the trajectories are distributed along the $x_2$ direction at every time instant (\textcolor{red}{??}). Naturally, if $\nu^*(A|t,x_1)=0$, then $\nu(A|t,x_1)=0$ $\forall (t,x_1)\in T\times X_1$ ($\because\mathcal X_p\subseteq\mathcal X_s$); and hence $\nu(\cdot|t,x_1)\ll \nu^*(\cdot|t,x_1)$. Thus, using \cite[Theorem 58]{dellachere}, $\exists \phi(t,x_1)$, a $\pi_{t,x_1}\mu$ measurable function such that
+\begin{align*}
+\label{eq:domination:conditional:2}
+   d\mu =&\,\phi(t,x_1)\,d\nu^*(x_2|t,x_1)\,d\pi_{t,x_1}\mu(t,x_1),\\\nonumber
+    =&\,d\nu^*(x_2|t,x_1)\,d\bar\mu(t,x_1),
+\end{align*}
+where the final equality is obtained by appropriately defining $\bar\mu$.
+\par
+Since $\sigma\,(:=\sigma^+-\sigma^-)$ and $\mu$ are solutions to the Liouville equation with R-N derivative \mbox{$u=u(t,x_1)$}, the following relations hold
+\begin{align*}
+  d\sigma=&\,u\,d\mu,\\
+  =&\,ud\nu^*(x_2|t,x_1)\,d\bar\mu(t,x_1),\\
+  =&\,d\nu^*(x_2|t,x_1)\,d\bar\sigma(t,x_1),
+\end{align*}
+with $d\bar \sigma=u\,d\bar\mu$.\par
+\textcolor{red}{Finally, to see that $\hat\sigma$ shares the same conditional as $\mu$, we use the following construction...}
+\par
+Thus, it follows that for every initial condition in the BRS, there exists a feasible solution to {\bf P$_p$} and hence the optimization problem {\bf P$_p$} is stronger that any other any problem that exactly identifies the BRS. Thus if $q^*$ is the optimal value of the cost, then $q^*\ge \lambda(\mathcal X_p)$.
+\par
+Next, we show that $q^*\le \lambda(\mathcal X_p)$ by contradiction. Let $(\mu_0,\,\mu_T,\,\mu,\,\sigma^+,\,\sigma^-,\,\hat\sigma)$ be a feasible solution to {\bf P$_p$} and suppose $\lambda\,(A:=\supp(\mu_0)\backslash \mathcal X_p)\ne 0$. By definition, $\exists u=u(t,x_1)$ such that $d\sigma=u\,d\mu$; re-define the dynamics of the system by subsuming this control law into the drift vector field; i.e.
+\begin{align*}
+  \dot x=\bar f(t,x_1,x_2)=f(t,x_1,x_2)+u(t,x_1)g(t,x_1,x_2).
+\end{align*}
+It is evident that the tuple $(\mu_0,\,\mu,\,\mu_T)$ is a feasible solution to the optimization problem
+\begin{align*}
+  \delta_0\times \mu_0=\delta_T\times \mu_T+\mathcal L_{\bar f}'\mu.
+\end{align*}
+Using \cite[Lemma 3]{Henrion}, it then follows that there exists a family of admissible trajectories emanating from $\supp(\mu_0)$ and terminating in $\supp(\mu_T)$. This is a contradiction since trajectories starting from $\supp(\mu)\backslash \mathcal X_p$ cannot be admissible; i.e. $\lambda(\mathcal X_p)\ge \lambda(\supp(\mu_0))$. Thus, $\lambda(\mathcal X_p)=\lambda(\supp (\mu_0))$.
+\end{proof}
+
+%%%%%%
+\justify
+The next Lemma is a variation of \cite[Lemma 2]{Henrion} in that it establishes that the BRS can be identified as the interior of the super-level set $\{(x_1,x_2)\mid w(x_1,x_2)\ge 1\}$.
+
+\begin{lemma}
+Let $(v,w,p_{1,\ldots,m})$ be a tuple of feasible solutions to the dual {\bf D$_p$}. Then $v(0,\cdot,\cdot)\ge 0$ and $w\ge 1$ on $X_0\,(:=\supp (\mu_0))$.
+\end{lemma}
+\begin{proof}
+    By the fundamental theorem of calculus and the constraints of {\bf D$_p$},
+    \begin{align*}
+      0\le v(T,x(T))=&\,v(0,x(0))+\int_{0}^T \mathcal L_fv+\mathcal L_gv\,u(t)\, dt\\
+      =&\,v(0,x(0))+\int_{T\times X_1\times X_2} \left(\mathcal L_fv+\mathcal L_gv\,u(t,x_1,x_2)\, \right)d\mu\\
+      =&\,v(0,x(0))+\int_{T\times X_1} \left(\phi\circ\mathcal L_fv+\phi \circ (\mathcal L_gv\,u(t,x_1,x_2))\,\right) d\bar\mu\\
+      =&\,v(0,x(0))+\int_{T\times X_1} \left(\phi\circ\mathcal L_fv+\sum_{i=1}^m\phi\circ [p]_i+\phi \circ (\mathcal L_gv\,u(t,x))-\sum_{i=1}^m\phi\circ [p]_i\, \right)d\bar\mu\\
+      \le&\,v(0,x(0))\le w(x(0))-1
+    \end{align*}
+    where $x(t)=(x_1(t),x_2(t))$.
+\end{proof}
+%%%%%%
+\begin{mybox_red}
+{\bf Notes / todo}
+\begin{enumerate}
+    \item Check to ensure that all text in red make sense.
+    \item Why is it okay to optimize over just $\bar\mu\in \mathcal M(T\times X_1)$? Use result in \cite[Theorem 10.7.2]{bogachev_v2}.
+    \item Using the regular conditional from an unsigned measure and a positive `marginal', we can construct another unsigned measure?
+    \item Evaluating output-feedback controllability using inner approximations
+    \item Change notations to ensure there is no confusions between the final time $T$ and the interval $T=[0,\,T]$.
+    \item Having changed the primal problem formulation, need to show that the $\hat\sigma$ has the same conditional as $\mu$. (Lemma~\ref{lemma:BRS})
+    \item Check to see if the assumption of controllability is required and the kind of dynamical systems can be entertained \cite[Assumption 2]{Henrion}.
+\end{enumerate}
+\end{mybox_red}
+
+\begin{thebibliography}{9}
+%  \bibitem{Folland}
+%  Folland, Gerald B. ``Real Analysis: Modern Techniques and Their Applications, John Willey and Sons.'' Inc., New York (1999).
+%  \bibitem{Dubins}
+%  Dubins, Lester, and David Freedman. ``Measurable sets of measures." Pacific Journal of Mathematics 14.4 (1964): 1211-1222.
+  \bibitem{Henrion}
+  Henrion, D.; Korda, M., ``Convex Computation of the Region of Attraction of Polynomial Control Systems," Automatic Control, IEEE Transactions on , vol.59, no.2, pp.297,312, Feb. 2014
+    doi: 10.1109/TAC.2013.2283095
+\bibitem{Anirudha}
+Majumdar, Anirudha, et al. ``Convex optimization of nonlinear feedback controllers via occupation measures." The International Journal of Robotics Research (2014): 0278364914528059.
+\bibitem{bogachev_v2}
+Bogachev, Vladimir I. Measure theory. Vol. 2. Springer Science \& Business Media, 2007.
+\bibitem{dellachere}
+Dellacherie, Claude, and Paul-André Meyer. "Probabilities and potential. B, volume 72 of North-Holland Mathematics Studies." (1982).
+\end{thebibliography}
+\end{document}
