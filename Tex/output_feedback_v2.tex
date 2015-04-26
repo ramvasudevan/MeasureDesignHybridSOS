@@ -98,7 +98,7 @@ where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\time
 \end{definition}
 %%%%%
 \begin{definition}
-  Suppose $\mu$ is a measure on the space $(X,\Sigma)$. The Jordan-Hahn decomposition of $\mu$ is unique and given by 
+  Suppose $\mu$ is a measure on the space $(X,\Sigma)$. The Jordan-Hahn decomposition of $\mu$ is unique and given by
   \begin{align*}
     \mu=\mu^+-\mu^-,
   \end{align*}
@@ -106,7 +106,7 @@ where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\time
 \end{definition}
 %%%%%
 \begin{fact}[{\cite[Theorem 10.4.14]{bogachev_v2}}](\textcolor{red}{Check!!})
-  Let $\mu$ be an unsigned measure defined on $(X\times Y,\,\mathcal B)$ where $X\subset \R^n$, $Y\subset \R^m$, $\mathcal B$ is the Borel $\sigma$-algebra, and $\pi_{y}\mu$ be the projection (marginal) onto $Y$. Then, $\forall y\in Y$, there exists an unsigned measure $\nu(\cdot,y)$ on $\mathcal B$ such that
+  Let $\mu$ be an unsigned measure defined on $(X\times Y,\,\mathcal B)$ where $X\subset \R^n$, $Y\subset \R^m$, $\mathcal B$ is the Borel $\sigma$-algebra, and $\pi_{y}\mu$ be the projection (marginal) onto $Y$. Then, $\forall y\in Y$, there exists an unsigned measure $\mu(\cdot,y)$ on $\mathcal B$ such that
   \begin{align*}
     d\mu=d\nu(x_1|x_2)\,d\pi_{x_2}\mu.
   \end{align*}
@@ -116,7 +116,7 @@ where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\time
 \begin{fact}[{\cite[Remark 10.4.4]{bogachev_v2}}](\textcolor{red}{Check!!})
   If $\sigma$ is a signed measure on $(X\times Y, \mathcal B)$ possessing as regular conditional measures, unsigned measures $\nu_\sigma(\cdot,\,y)$, $\forall y\in Y$, $|\sigma|$ admits $\nu_\sigma(\cdot,\,y)$ as its regular conditional measure.
   \par
-  Conversely, if $\nu(\cdot,y)$ is the regular conditional measure for $\forall y\in Y$ and it is unsigned, then the regular conditional measures of $\mu^+$ and $\mu^-$ are $\nu(\cdot,y)$.
+  Conversely, if $\mu(\cdot,y)$ is the regular conditional measure for $\forall y\in Y$ of $|\mu|$ and it is unsigned, then the regular conditional measures of $\mu^+$ and $\mu^-$ are $\nu(\cdot,y)$.
 \label{fact:variation}
 \end{fact}
 %%%%%
@@ -133,7 +133,7 @@ where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\time
     \end{align}
     where $\pi_{x_1}\mu$ is the $x_1$ marginal of $\mu$. If $d\nu_\sigma(x_2|x_1)=d\nu_{\mu}(x_2|x_1)$, then the Radon-Nikodym derivative $\dfrac{d\sigma}{d\mu}$ is not a function of $x_2$.
     \par
-    Additionally, if $\sigma$ and $\mu$ satisfy the above conditions with $\mu\ge 0$, $\exists\, \hat\sigma\ge 0$ such that 
+    Additionally, if $\sigma$ and $\mu$ satisfy the above conditions with $\mu\ge 0$, $\exists\, \hat\sigma\ge 0$ such that
     \begin{align}
       \sigma+\hat\sigma=\mu\label{eqn:sufficiency:domination:equality}
     \end{align}
