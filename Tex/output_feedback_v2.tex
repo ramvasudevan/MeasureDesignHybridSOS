@@ -4,6 +4,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{color}
 \usepackage{amsthm}
+\usepackage[hidelinks]{hyperref}
 \usepackage{mathtools}
 \usepackage{enumerate}
 \usepackage{tcolorbox}
@@ -18,6 +19,7 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{fact}{Fact}
+\newtheorem{definition}{Definition}
 \setlength{\parindent}{0in}
 \setlength{\parskip}{.1in}
 \providecommand{\supp}{\ensuremath \text{supp }}
@@ -90,6 +92,35 @@ In the dual formulation below, let $\phi\colon C_c(T\times X_1\times X_2)\righta
 where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\times X_1\times X_2),\,q\in C(T\times X_1\times X_2)$ and $`\circ'$ is used to denote the action of operator $\phi$ on a function.
 
 \centering{\rule{.5\columnwidth}{1pt}}
+%%%%%
+\begin{definition}[{\cite[Definition 1.3.4]{bogachev_v1}}]
+  A countably additive measure $\mu$ on a space $(X,\Sigma)$ is a probability measure if $\mu\ge 0$ and $\mu(X)=1$.
+\end{definition}
+%%%%%
+\begin{definition}
+  Suppose $\mu$ is a measure on the space $(X,\Sigma)$. The Jordan-Hahn decomposition of $\mu$ is unique and given by 
+  \begin{align*}
+    \mu=\mu^+-\mu^-,
+  \end{align*}
+  where $\mu^+,\,\mu^-\ge 0$. The total variation of $\mu$ is defined as $|\mu|=\mu^++\mu^-$. Clearly, if $\mu\ge 0$, then $|\mu|=\mu$.
+\end{definition}
+%%%%%
+\begin{fact}[{\cite[Theorem 10.4.14]{bogachev_v2}}](\textcolor{red}{Check!!})
+  Let $\mu$ be an unsigned measure defined on $(X\times Y,\,\mathcal B)$ where $X\subset \R^n$, $Y\subset \R^m$, $\mathcal B$ is the Borel $\sigma$-algebra, and $\pi_{y}\mu$ be the projection (marginal) onto $Y$. Then, $\forall y\in Y$, there exists an unsigned measure $\nu(\cdot,y)$ on $\mathcal B$ such that
+  \begin{align*}
+    d\mu=d\nu(x_1|x_2)\,d\pi_{x_2}\mu.
+  \end{align*}
+\label{fact:unsigned_conditional}
+\end{fact}
+%%%%%
+\begin{fact}[{\cite[Remark 10.4.4]{bogachev_v2}}](\textcolor{red}{Check!!})
+  If $\sigma$ is a signed measure on $(X\times Y, \mathcal B)$ possessing as regular conditional measures, unsigned measures $\nu_\sigma(\cdot,\,y)$, $\forall y\in Y$, $|\sigma|$ admits $\nu_\sigma(\cdot,\,y)$ as its regular conditional measure.
+  \par
+  Conversely, if $\nu(\cdot,y)$ is the regular conditional measure for $\forall y\in Y$ and it is unsigned, then the regular conditional measures of $\mu^+$ and $\mu^-$ are $\nu(\cdot,y)$.
+\label{fact:variation}
+\end{fact}
+%%%%%
+%%%%%
 \begin{lemma}[Sufficiency]
 \label{lemma:sufficiency}
     Let $\mu$ and $\sigma$ be radon measures on the product space $X_1\times X_2$ such that $\sigma \ll \mu$, where $X_1$ and $X_2$ are Polish spaces. Then each measure can be decomposed as follows
@@ -104,12 +135,12 @@ where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\time
     \par
     Additionally, if $\sigma$ and $\mu$ satisfy the above conditions with $\mu\ge 0$, $\exists\, \hat\sigma\ge 0$ such that 
     \begin{align}
-      \sigma+\hat\sigma=\mu\label{lemma:sufficiency:domination:equality}
+      \sigma+\hat\sigma=\mu\label{eqn:sufficiency:domination:equality}
     \end{align}
     and $d\hat\sigma=d\nu_\mu(x_2|x_1)\,d\hat{\bar\sigma}$. That is, the regular conditional of $\hat \sigma$ given $x_1$ is identical to that of $\mu$ and $\sigma$.
 \end{lemma}
 \begin{proof}
-  That each measure can be decomposed as in Eqn.~(\ref{eqn:polish:decomp}) follows from a standard result in measure theory [Bogachev] and hence we concentrate on the Radon-Nikodym derivative. Since $\sigma\ll \mu$, from the definition of marginals, $\pi_{x_1}\sigma\ll \pi_{x_1}\mu$; let $d\pi_{x_1}\sigma=\phi(x_1)\,d\pi_{x_1}\mu$.\par
+  That each measure can be decomposed as in Eqn.~(\ref{eqn:polish:decomp}) follows from a standard result in measure theory (\cite{bogachev_v2}) and hence we concentrate on the Radon-Nikodym derivative. Since $\sigma\ll \mu$, from the definition of marginals, $\pi_{x_1}\sigma\ll \pi_{x_1}\mu$; let $d\pi_{x_1}\sigma=\phi(x_1)\,d\pi_{x_1}\mu$.\par
   Consider an arbitrary test function $v(x_1,x_2)$; then the following equalities holds by definition.
   \begin{align*}
     g(x_1):=\int_{X_2}v(x_1,x_2)\,d\nu_{\sigma}(x_2|x_1)=\int_{X_2}v(x_1,x_2)\,d\nu_{\mu}(x_2|x_1)
@@ -121,7 +152,7 @@ where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\time
   \end{align*}
   Thus $d\sigma=\phi(x_1)\,d\mu$ and the Radon-Nikodym derivative is not a function of $x_2$.
   \par
-  The existence of $\hat\sigma \ge 0$ such that Eqn.~(\ref{lemma:sufficiency:domination:equality}) holds since $\sigma\ll\mu$. Additionally, as $\sigma$ and $\mu$ share the same conditional with respect to $x_1$, $\sigma$ admits the following decomposition.
+  The existence of $\hat\sigma \ge 0$ such that Eqn.~(\ref{eqn:sufficiency:domination:equality}) holds since $\sigma\ll\mu$. Additionally, as $\sigma$ and $\mu$ share the same conditional with respect to $x_1$, $\sigma$ admits the following decomposition.
   \begin{align*}
     d\hat \sigma=&\,d\nu(x_2|x_1)\,d(\pi_{x_1}\mu-\pi_{x_1}\sigma)(x_1)\\
     =&\,d\nu(x_2|x_1)\,d\hat{\bar\sigma}(x_1)
@@ -138,12 +169,11 @@ where $w\in C(X_1\times X_2),\,v\in C^1(T\times X_1\times X_2),\,p_k\in C(T\time
 \end{lemma}
 \begin{proof}
 In this proof, we consider the special case of single input control; a more general version follows naturally. For convenience, denote by $\mathcal U_s$ and $\mathcal U_p$ respectively, the set of all admissible state-feedback and partial-state-feedback control laws; by definition, $\mathcal U_p\subseteq \mathcal U_s$. Similarly, let $\mathcal X_s$ and $\mathcal X_p$ represent the collection of admissible state trajectories; $\mathcal X_p\subseteq \mathcal X_s$.\par
-By definition, for any initial condition $x_0\in X_0^o$, there exists a partial state-feedback control law $u(t,x_1)$ such that the resulting state trajectory is admissible. Thus, for any initial measure $\mu_0$, there exist measures $\mu,\,\mu_T,\sigma^+,\,\sigma^-$ and $\hat \sigma$ which satisfy the following constraints
+By definition, for any initial condition $x_0\in X_0^o$, there exists a partial state-feedback control law $u(t,x_1)$ such that the resulting state trajectory is admissible. Thus, for any initial measure $\mu_0$, there exist measures $\mu,\,\mu_T,\sigma$ which satisfy the following constraints
 \begin{flalign*}
-  &&\,\delta_{T}\times \mu_T=&\,\delta_{0}\times\mu_0+\mathcal L_{f}'\mu+\mathcal L_g'(\sigma^+-\sigma^-)&\\
-  &&\,\sigma^++\sigma^-+\hat\sigma=&\,\mu
+  &&\,\delta_{T}\times \mu_T=&\,\delta_{0}\times\mu_0+\mathcal L_{f}'\mu+\mathcal L_g'\sigma&
 \end{flalign*}
-such that $\mu_0,\,\sigma^+,\,\sigma^-,\,\hat\sigma,\,\mu_T,\,\mu\ge 0,\,\supp(\mu_0)\subset\mathcal X,\,\supp(\mu_T)\subset X_T$ and $\supp(\mu)\subset T\times X_1\times X_2$. This assertion follows from applying the result in \cite[Lemma 1]{Henrion} to the state-feedback problem posed in \cite{Anirudha} for any feasible trajectory and reviewing the relation between $\mathcal U_s$ and $\mathcal U_p$, and $\mathcal X_s$ and $\mathcal X_p$.\par
+such that $\mu_0,\,\mu_T,\,\mu\ge 0,\,\supp(\mu_0)\subset\mathcal X,\,\supp(\mu_T)\subset X_T$ and $\supp(\mu)\subset T\times X_1\times X_2$. This assertion follows from applying the result in \cite[Lemma 1]{Henrion} to the state-feedback problem posed in \cite{Anirudha} for any feasible trajectory and reviewing the relation between $\mathcal U_s$ and $\mathcal U_p$, and $\mathcal X_s$ and $\mathcal X_p$.\par
  Since the Euclidean space is Polish and hence Souslin, and separable, it follows that $\mu$ can be decomposed as follows \cite[Corollary 10.4.13]{bogachev_v2}
 \begin{align*}
     d\mu=&\,d\nu(x_2|t,x_1)\,d\pi_{t,x_1}\mu(t,x_1).
@@ -156,14 +186,24 @@ Now, since the occupation measure can be interpreted as the time spent in the re
 \end{align*}
 where the final equality is obtained by appropriately defining $\bar\mu$.
 \par
-Since $\sigma\,(:=\sigma^+-\sigma^-)$ and $\mu$ are solutions to the Liouville equation with R-N derivative \mbox{$u=u(t,x_1)$}, the following relations hold
+Since $\sigma$ and $\mu$ are solutions to the Liouville equation with R-N derivative \mbox{$u=u(t,x_1)$}, the following relations hold
 \begin{align*}
   d\sigma=&\,u\,d\mu,\\
   =&\,ud\nu^*(x_2|t,x_1)\,d\bar\mu(t,x_1),\\
   =&\,d\nu^*(x_2|t,x_1)\,d\bar\sigma(t,x_1),
 \end{align*}
-with $d\bar \sigma=u\,d\bar\mu$.\par
-\textcolor{red}{Finally, to see that $\hat\sigma$ shares the same conditional as $\mu$, we use the following construction...}
+with $d\bar \sigma=u\,d\bar\mu$.
+\par
+Define $\sigma^+,\,\sigma^-\ge 0$ such that the following holds (Jordan decomposition)
+\begin{align*}
+  \sigma=\sigma^+-\sigma^-.
+\end{align*}
+The regular conditional measures of $\sigma^+$ and $\sigma^-$ $\forall y\in Y$ are both $\nu(\cdot|t,x_1)$ (Facts \ref{fact:unsigned_conditional} and ~\ref{fact:variation}). Consequently, $\sigma^\pm$ can be decomposed as follows
+\begin{align*}
+  d\sigma^+=&\,d\nu^*(x_2|t,x_1)\,d\bar\sigma^+(t,x_1)\\
+  d\sigma^-=&\,d\nu^*(x_2|t,x_1)\,d\bar\sigma^-(t,x_1).
+\end{align*}
+Finally, to see that $\hat\sigma$ shares the same conditional as $\mu$, use Fact~\ref{fact:variation} and Lemma~\ref{lemma:sufficiency}.
 \par
 Thus, it follows that for every initial condition in the BRS, there exists a feasible solution to {\bf P$_p$} and hence the optimization problem {\bf P$_p$} is stronger that any other any problem that exactly identifies the BRS. Thus if $q^*$ is the optimal value of the cost, then $q^*\ge \lambda(X_0^o)$.
 \par
@@ -175,7 +215,7 @@ It is evident that the tuple $(\mu_0,\,\mu,\,\mu_T)$ is a feasible solution to t
 \begin{align*}
   \delta_0\times \mu_0=\delta_T\times \mu_T+\mathcal L_{\bar f}'\mu.
 \end{align*}
-Using \cite[Lemma 3]{Henrion}, it then follows that there exists a family of admissible trajectories emanating from $\supp(\mu_0)$ and terminating in $\supp(\mu_T)$. This is a contradiction since trajectories starting from $\supp(\mu)\backslash \mathcal X_p$ cannot be admissible; i.e. $\lambda(X_0^o)\ge \lambda(\supp(\mu_0))$. Thus, $\lambda(X^o_0)=\lambda(\supp (\mu_0))$.
+Using \cite[Lemma 3]{Henrion}, it then follows that there exists a family of admissible trajectories emanating from $\supp(\mu_0)$ and terminating in $\supp(\mu_T)$. This is a contradiction since trajectories starting from $\supp(\mu)\backslash X_0^o$ cannot be admissible; i.e. $\lambda(X_0^o)\ge \lambda(\supp(\mu_0))$. Thus, $\lambda(X^o_0)=\lambda(\supp (\mu_0))$.
 \end{proof}
 
 %%%%%%
@@ -220,6 +260,8 @@ Let $(v,w,p_{1,\ldots,m})$ be a tuple of feasible solutions to the dual {\bf D$_
     doi: 10.1109/TAC.2013.2283095
 \bibitem{Anirudha}
 Majumdar, Anirudha, et al. ``Convex optimization of nonlinear feedback controllers via occupation measures." The International Journal of Robotics Research (2014): 0278364914528059.
+\bibitem{bogachev_v1}
+Bogachev, Vladimir I. Measure theory. Vol. 1. Springer Science \& Business Media, 2007.
 \bibitem{bogachev_v2}
 Bogachev, Vladimir I. Measure theory. Vol. 2. Springer Science \& Business Media, 2007.
 \bibitem{dellachere}
