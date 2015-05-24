@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+\usepackage[letterpaper,margin=1in]{geometry}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{.1in}
+\providecommand{\N}{\ensuremath \mathbb{N}}
+\providecommand{\R}{\ensuremath \mathbb{R}}
+\providecommand{\ip}[1]{\ensuremath \langle #1 \rangle}
+\providecommand{\supp}{\ensuremath \text{supp }}
+\begin{document}
+  \title{Parameter robustness study}
+  \author{}
+  \date{}
+  \maketitle
+  The following is the primal of the problem under consideration.\par
+  {\bf Parameter robustness : Primal problem} ({\bf P})
+\par
+Let $\Lambda=\{\mu,\mu_0,\,\mu_T,\,\hat\mu_0\}$ and
+$\Lambda_\gamma=\{\mu,\gamma_0,\,\mu_T,\,\hat\gamma_0\}$
+\begin{flalign*}
+&\operatorname*{sup}_{\Lambda_\gamma}\,\supp(\gamma_0)\\
+&\text{subject to}\\
+    &&\,\mathcal L_{\bar f}'\mu+\delta_0\times \mu_0^*\times \gamma_0=&\,\delta_T\times \mu_T&\\
+    &&\,\lambda=&\,\gamma_0+\hat \gamma_0\\
+    &&\mu,\,\gamma_0,\,\hat\gamma_0,\,\mu_T\ge&\, 0\\
+    &&\supp(\mu_T)\subset&\, X_T\times \Theta\\
+    &&\supp(\gamma_0)\subset&\, \Theta\\
+    &&\supp(\hat \gamma_0)\subset&\, \Theta\\
+    &&\supp(\mu)\subset&\, T\times X\times \Theta
+\end{flalign*}
+where $\mu_0^*$ is the optimal solution (measure on initial conditions) to problem ({\bf P$_1$})
+\begin{flalign*}
+&\operatorname*{sup}_{\Lambda}\,\supp(\mu_0)\\
+&\text{subject to}\\
+    &&\,\mathcal L_{f}'\mu+\delta_0\times \mu_0=&\,\delta_T\times \mu_T&\\
+    &&\,\lambda=&\,\mu_0+\hat \mu_0\\
+    &&\mu,\mu_0,\,\hat\mu_0,\,\mu_T\ge&\, 0\\
+    &&\supp(\mu_T)\subset&\, X_T\\
+    &&\supp(\mu_0)\subset&\, X\\
+    &&\supp(\hat \mu_0)\subset&\, X\\
+    &&\supp(\mu)\subset&\, T\times X.
+\end{flalign*}
+{\bf Interpretation :}\par
+Problem {\bf P$_1$} attempts to characterize the set of initial conditions that can reach the terminal set $X_T$. {\bf P} attempts to address the following question : ``What are the values of constant perturbations, $\theta$, that the system is able to reject in finite time?''. The answer to the latter question is expected to be a connected set (continuity of solutions to ODEs with respect to initial conditions) and {\bf P} wants to determine this set (Obviously, this set is nonempty since 0 is an element).\par
+Observe that the Liouville eqn. in ${\bf P}$ assumes that the initial measure can be decomposed as a product measure and that $x$ and $\theta$ are independent; the independence condition is enforced to ensure that the value of \emph{rejectable} perturbation is independent of the initial state of the system and the set of admissible initial conditions is independent of $\theta$. We cannot expect $\mu$ and $\mu_T$ to be decomposable similarly, for obvious reasons.
+\par
+{\bf (D) Dual to P:}
+\begin{flalign*}
+&\inf\,\ip{\lambda,w}\\
+&\text{subject to}\\
+    &&\mathcal L_fv\le&\,0,&\\
+    &&w-1 - \int_X v(0,x,\theta)\,d\mu_0^*\ge&\, 0,\\
+    &&v(T,\cdot,\cdot)\ge &\,0,\\
+    &&w\ge&\, 0,
+\end{flalign*}
+where $w\in C(\Theta),\,v\in C^1(T\times X\times \Theta)$.
+%\begin{align*}
+%  0\le v(T,\cdot,\cdot)=v(0,\cdot,\cdot)+\int_T \mathcal L_{\bar f}v\,d\mu\le v(0,\cdot,\cdot)
+%\end{align*}
+\end{document}
