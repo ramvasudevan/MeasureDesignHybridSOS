@@ -1,0 +1,16 @@
+function degree=nextEvenMssDegree(expr,vars)
+    monos=p2d_decomp(expr);
+    for i=1:length(monos)
+        out=factor_n_test(monos(i),vars,vars,zeros(1,length(vars)));
+        b=max(out.degree;
+    end
+    [~,b,~]=decomp(expr);
+    tmp=sum(b,2);
+    [~,idx]=max(tmp);
+    keyboard
+    if size(b,1) == 0
+        degree=2;
+    else
+        degree=(1-mod(tmp(idx),2))*tmp(idx)+(mod(tmp(idx),2))*(floor(tmp(idx)/2)+1)*2;
+    end
+end
