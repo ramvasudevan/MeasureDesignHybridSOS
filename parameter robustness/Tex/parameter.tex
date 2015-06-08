@@ -1,0 +1,83 @@
+\documentclass[10pt]{scrartcl}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage[margin=1in,letterpaper]{geometry}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\setlength{\parskip}{.1in}
+\providecommand{\R}{\ensuremath \mathbb{R}}
+\providecommand{\ip}[1]{\ensuremath \langle #1\rangle}
+
+\begin{document}
+\title{Towards computing the BRS of nonlinear systems driven by uncertain dynamics}
+\subtitle{Convex computation of the BRS with constant uncertainties}
+\author{Shankar Mohan, Ram Vasudevan}
+\maketitle
+The question that this note attempts to address is the following -- how does one compute the time limited BRS under constant parametric uncertainty? The approach taken is a direct extension of the formulation in [Henrion], save for the difference in the way the dynamics of the system is described.\par
+We consider a polynomial dynamical system whose state evolution is described by the following
+\begin{align}
+	\dot x=f(x,\theta)
+\end{align}
+wherein $x\in \R^{n_x}$ are the states of the model, $\theta\in \R^{n_\theta}$ are the parameters that are not known a priori but whose probability distribution is given by $\mu_{\theta}$; it is assumed that the distribution of $\theta$ is not state dependent. As stated, $f$ and $g$ are polynomial functions and the states are assumed to be restricted to evolve in semi-algebraic sets $\mathcal X$.
+\par
+The choice of a drift system is deliberate---to simplify presentation---and the presented method can be extended to a control affine system with ease.
+\par 
+To assist in our problem formulation, we define the following measures
+\begin{align}
+	\mu(A\times B\mid x_0,\theta):=\int_{0}^T I_{A\times B}(t,x(t\mid x_0,\theta)) \,dt
+\end{align}
+where $A\subset \mathcal T:=[0,T]$ and $B\subset \mathcal X$. The $\mu(\cdot\mid x_0)$ is a measure of the time spent by the state trajectory in the set $B$ if the initial condition of the system was $x_0$ and the value of the uncertain parameter was $\theta_0$.
+\begin{align}
+	\mu(A\times B\mid x_0):=&\,\int_{\Theta} \mu(A\times B\mid x_0,\theta) \,d\theta\\
+	\mu(A\times B):=&\,\int_{\mathcal X} \mu(A\times B\mid x_0) \,d\mu_0(x_0)\\
+	\mu_T(A):=&\,\int_{\mathcal X_T\times \Theta}I_{A}(x(T\mid x_0,\theta_0))\,d\mu_\theta(\theta_0)\,d\mu_0(x_0)
+\end{align}
+$\mu(\cdot)$ is the \emph{average occupation measure} and corresponds to the total time that is spent by all system trajectories that arise from the support of $\mu_0$, the measure on the set of admissible initial conditions.
+\par
+Consider a test function $v\in C^1(\mathcal T\times \mathcal X); \mathcal T\times \mathcal X\mapsto \R$ and its evolution along the flow of states. By the fundamental theorem of calculus, one has
+\begin{align}
+	v(T,x(T\mid x_0,\theta_0))=v(0,x_0)+\int_{0}^T \mathcal L_fv(t,x(t\mid x_0,\theta_0))\,dt
+\end{align} 
+where $\mathcal L_fv:=\frac{\partial v}{\partial t}+\nabla_x v \cdot f$.
+\par
+ By definition, the following equalities hold
+\begin{align}
+	v(T,x(T\mid x_0,\theta_0))=&\,v(0,x_0)+\int_{0}^T \mathcal L_fv(t,x(t\mid x_0,\theta_0))\,dt\\
+	=&\,v(0,x_0)+\int_{\mathcal T\times \mathcal X}\mathcal L_fv(t,x)\,d\mu(t,x\mid x_0,\theta_0)
+\end{align}
+Since we are interested in the bundle of trajectories that emanate from any admissible initial condition, we integrate the above equation wrt $\mu_\theta$ to arrive at the following
+\begin{align}
+	\int_{\Theta} v(t,x(T\mid x_0,\theta_0)) \,d\mu_\theta=\int_\Theta v(0,x_0)\,d\mu_\theta+\int_{\mathcal T\times \mathcal X} \Phi\circ \mathcal L_fv(t,x)\,d\,\mu(t,x\mid x_0)
+\end{align}
+Now, since $\mu_\theta$ is a probability measure and $v$ is not a function of $\theta$,
+\begin{align}
+	\int_{\Theta} v(t,x(T\mid x_0,\theta_0)) \,d\mu_\theta=v(0,x_0)+\int_{\mathcal T\times \mathcal X} \Phi\circ \mathcal L_fv(t,x)\,d\,\mu(t,x\mid x_0).
+\end{align}
+By considering the bundle if trajectories emanating from the set of admissible initial conditions (integrating wrt. $\mu_0$),
+\begin{align}
+	\int_{\mathcal X_T} v(t,x) \,d\mu_T=\int_{\mathcal X}v(0,x)\,d\mu_0(x)+\int_{\mathcal T\times \mathcal X} \Phi\circ \mathcal L_fv(t,x)\,d\,\mu(t,x).
+\end{align}
+Now, we formulate the primal problem as described in [Henrion]
+\begin{flalign}
+	\sup \text{supp}(\mu_0)\\
+	&&\int_{\mathcal X_T} v(t,x) \,d\mu_T=&\,\int_{\mathcal X}v(0,x)\,d\mu_0(x)+\int_{\mathcal T\times \mathcal X} \Phi\circ \mathcal L_fv(t,x)\,d\,\mu(t,x)&\\
+	&& \mu_0+\hat\mu_0=&\,\lambda
+\end{flalign}
+The dual to the above primal is 
+\begin{flalign}
+\inf \ip{\lambda,w}\\
+&& w\ge &\,0&\\
+&& v(T,\cdot)\ge&\, 0\\
+&& -\Phi\circ \mathcal L_fv\ge&\,0\\
+&& w-1-v(0,\cdot)\ge &\,0
+\end{flalign}
+To find the outer approximation of the BRS:
+\begin{align}
+0\le v(T,x(T\mid x_0,\theta_0))=&\,v(0,x_0)+\int_{0}^T\mathcal L_fv(t,x(t\mid x_0,\theta_0))\,dt\\
+=&\,v(0,x_0)+\int_{\mathcal T\times \mathcal X}\mathcal L_fv(t,x)\,d\mu(t,x\mid x_0,\theta_0)\\
+0\le \int_{\Theta}v(T,x(T\mid x_0,\theta_0))\,d\mu_\theta(\theta_0)=&\,v(0,x_0)+\int_{\mathcal T\times \mathcal X}\Phi\circ \mathcal L_fv(t,x)\,d\mu(t,x\mid x_0)\\
+\le &\,v(0,x_0)\le w(x_0)-1
+\end{align}
+\end{document}
