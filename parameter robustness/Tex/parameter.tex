@@ -206,37 +206,37 @@ The only place where the uncertainty features is in the definition of the guard;
 \end{align}
 where $J$ is the Jacobian determinant of $R$.
 \par
+%Consider the primal
+%\begin{flalign}
+	%\sup \ip{\mu_0,1}\\
+	%&&\begin{split}
+	%\int_{\mathcal X_T}v(T,x)\,d \mu_{T}+&\,\int_{\mathcal T\times \mathcal G}v(t,x)\,d\mu^{G}(t,x,\theta)=\int_{\mathcal X}v(0,x)\,d\mu_0\\
+	%&\,+\int_{\mathcal T\times \mathcal G^*}v(t,x)\,d\mu^{G*}(t,x,\theta)+\int_{\mathcal T\times \mathcal X}\mathcal L_{f}v(t,x)\,d\mu
+	%\end{split}
+	%&\\
+	%&& \int_{\mathcal T\times \mathcal G^*}p(t,x,\theta)\,d\mu^{G*}=&\,\int_{\mathcal T\times \mathcal G} p(t,R(x),\theta)\cdot J(x,\theta)\,d\mu^G\\
+	%&& \int_{\mathcal X}w(x)\,d\mu_0+\int_{\mathcal X}w(x)\,d\hat\mu_0=&\,\int_{\mathcal X}w(x)\,d\lambda\\
+	%&& \int_{\mathcal X_T} 1\,d\mu_T=&\,\int_{\mathcal X}1\,d\mu_0
+%\end{flalign}
+%where $$\mathcal G=\{(x,\theta)\mid g(x,\theta)=0,\,\forall \theta\in \Theta,\,x\in \mathcal X\}$$
+%$$\mathcal G^*=\{(x,\theta)\mid \exists y\in \pi_{x}\mathcal G,\,x=R(y),\,\theta\in \Theta\}$$
+%$$\mathcal G^{**}=\{x\mid \exists \theta\in \Theta,\,(x,\theta)\in \mathcal G\}$$
+%\par
+%The corresponding dual is 
+%\begin{flalign}
+%\inf \ip{\lambda,w}\\
+%&& w\ge &\,0&\\
+%&& v(T,\cdot)+q\ge&\, 0 & \forall x\in \mathcal X_T\\
+%&& - \mathcal L_{\tilde f}v\ge&\,0 & \forall (x,\theta)\in \mathcal X\times \Theta\\
+%&& w-1-v(0,x)-p\ge &\,0 & \forall x\in \mathcal X\\
+%&& v(t,x)-v(t,R(x))\ge &\,0,\,\forall x\in \mathcal X & x\in \mathcal G^{**}
+%\end{flalign}
+%\newpage
 Consider the primal
 \begin{flalign}
 	\sup \ip{\mu_0,1}\\
 	&&\begin{split}
-	\int_{\mathcal X_T}v(T,x)\,d \mu_{T}+&\,\int_{\mathcal T\times \mathcal G}v(t,x)\,d\mu^{G}(t,x,\theta)=\int_{\mathcal X}v(0,x)\,d\mu_0\\
-	&\,+\int_{\mathcal T\times \mathcal G^*}v(t,x)\,d\mu^{G*}(t,x,\theta)+\int_{\mathcal T\times \mathcal X}\mathcal L_{f}v(t,x)\,d\mu
-	\end{split}
-	&\\
-	&& \int_{\mathcal T\times \mathcal G^*}p(t,x,\theta)\,d\mu^{G*}=&\,\int_{\mathcal T\times \mathcal G} p(t,R(x),\theta)\cdot J(x,\theta)\,d\mu^G\\
-	&& \int_{\mathcal X}w(x)\,d\mu_0+\int_{\mathcal X}w(x)\,d\hat\mu_0=&\,\int_{\mathcal X}w(x)\,d\lambda\\
-	&& \int_{\mathcal X_T} 1\,d\mu_T=&\,\int_{\mathcal X}1\,d\mu_0
-\end{flalign}
-where $$\mathcal G=\{(x,\theta)\mid g(x,\theta)=0,\,\forall \theta\in \Theta,\,x\in \mathcal X\}$$
-$$\mathcal G^*=\{(x,\theta)\mid \exists y\in \pi_{x}\mathcal G,\,x=R(y),\,\theta\in \Theta\}$$
-$$\mathcal G^{**}=\{x\mid \exists \theta\in \Theta,\,(x,\theta)\in \mathcal G\}$$
-\par
-The corresponding dual is 
-\begin{flalign}
-\inf \ip{\lambda,w}\\
-&& w\ge &\,0&\\
-&& v(T,\cdot)+q\ge&\, 0 & \forall x\in \mathcal X_T\\
-&& - \mathcal L_{\tilde f}v\ge&\,0 & \forall (x,\theta)\in \mathcal X\times \Theta\\
-&& w-1-v(0,x)-p\ge &\,0 & \forall x\in \mathcal X\\
-&& v(t,x)-v(t,R(x))\ge &\,0,\,\forall x\in \mathcal X & x\in \mathcal G^{**}
-\end{flalign}
-\newpage
-Consider the primal
-\begin{flalign}
-	\sup \ip{\mu_0,1}\\
-	&&\begin{split}
-	\int_{\mathcal X_T\times \Theta}v(T,x,\theta)\,d \mu_{T}+&\,\int_{\mathcal T\times \mathcal G}v(t,x,\theta)\,d\mu^{G}(t,x,\theta)=\int_{\mathcal X}v(0,x,\theta)\,d\mu_0\otimes\mu_\theta\\
+	\int_{\mathcal X_T\times \Theta}v(T,x,\theta)\,d \mu_{T}+&\,\int_{\mathcal T\times \mathcal G}v(t,x,\theta)\,d\mu^{G}(t,x,\theta)=\int_{\mathcal X\times \Theta}v(0,x,\theta)\,d\mu_0\otimes\mu_\theta\\
 	&\,+\int_{\mathcal T\times \mathcal G^*\times \Theta}v(t,x,\theta)\,d\pi_{t,x}\mu^{G*}\otimes\mu_\theta+\int_{\mathcal T\times \mathcal X}\mathcal L_{f}v(t,x,\theta)\,d\mu
 	\end{split}
 	&\\
@@ -256,5 +256,17 @@ The corresponding dual is
 && w-1-\int_{\Theta}v(0,x,\theta)\,d\mu_\theta-q\ge &\,0 & \forall x\in \mathcal X\\
 && v(t,x,\theta)-J(x)\int_\Theta v(t,R(x),\theta)\,d\mu_\theta\ge &\,0,&\,\forall t\in \mathcal T, \forall (x,\theta)\in \mathcal G
 \end{flalign}
-where $q\in \R$, $v\in C^1(\mathcal T\times \mathcal X\times \Theta)$ and $w\in C(\mathcal X)$.
+where $q\in \R$, $v\in C^1(\mathcal T\times \mathcal X\times \Theta)$ and $w\in C(\mathcal X)$.\par
+Now consider a sequence of $n-1$ switches occurring at times in $\tau_1,\,\cdots,\,\tau_{n-1}$ with $\tau_{n-1}=T$ and a corresponding sequence of disturbances $(\theta)_n$. After the $n-1$ th switch, a feasible trajectory is assumed to reach the terminal set. From the constraints to the dual problem, for any initial condition $x_0$ that reaches the terminal set, 
+\begin{align}
+-q\le&\, v(T,x(T),\theta_n)=v(\tau_{n-1},R(x(\tau_{n-1}),\theta_n)+\int_{\tau_{n-1}}^T \mathcal L_{\tilde f} v \,dt\\
+\le&\, v(\tau_{n-1},R(x(\tau_{n-1}),\theta_n)\label{eqn:pivot}\\
+\le&\, \frac{1}{J(x(\tau_{n-1}))}{v(\tau_{n-1},x(\tau_{n-1}),\theta_{n-1})}\\
+\le&\,\prod_{j=n-2}^{n-1} \left(\frac{1}{J(x(\tau_{j}))}\right){v(\tau_{n-2},x(\tau_{n-2}),\theta_{n-2})}\\
+\le &\,\prod_{j=1}^{n-1} \left(\frac{1}{J(x(\tau_{j}))}\right){v(0,x_0,\theta_1)}\\
+\le &\, \prod_{j=1}^{n-1} \left(\frac{1}{J(x(\tau_{j}))}\right) (w(x_0)-1-q)
+\end{align}
+where each subsequent inequality following Eqn.~(\ref{eqn:pivot}) is attained by integrating the left and right hand sides with respect to $\theta$.\par
+For applications in which the reset map is linear, the Jacobian determinant is independent of $x$ and hence an outer approximation of the BRS is the set
+$$\{x\mid w(x)\ge 1+q(J^{n-1}-1)\}$$
 \end{document}
