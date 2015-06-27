@@ -28,8 +28,8 @@ We consider a polynomial dynamical system whose state evolution is described by 
 wherein $x\in \R^{n_x}$ are the states of the model, $\theta\in \R^{n_\theta}$ are the parameters that are not known a priori but whose probability distribution is given by $\mu_{\theta}$; it is assumed that the distribution of $\theta$ is not state dependent. As stated, $f$ and $g$ are polynomial functions and the states are assumed to be restricted to evolve in semi-algebraic sets $\mathcal X$.
 \par
 The choice of a drift system is deliberate---to simplify presentation---and the presented method can be extended to a control affine system with ease.
-\par 
-To assist in our problem formulation, we define the following 
+\par
+To assist in our problem formulation, we define the following
 \begin{align}
 \begin{bmatrix}\dot x\\\dot\theta\end{bmatrix}=\tilde f(x,\theta):=&\,\begin{bmatrix}f(x\mid\theta)\\0
 \end{bmatrix}\\
@@ -45,7 +45,7 @@ $\mu(\cdot)$ is the \emph{average occupation measure} and corresponds to the tot
 Consider a test function $v\in C^1(\mathcal T\times \mathcal X\times \Theta); \mathcal T\times \mathcal X\times \Theta\mapsto \R$ and its evolution along the flow of states. By the fundamental theorem of calculus, one has
 \begin{align}
 	v(T,x(T\mid x_0,\theta_0),\theta(T))=v(0,x_0,\theta_0)+\int_{0}^T \mathcal L_{\tilde f}v(t,x(t\mid x_0,\theta_0),\theta(t\mid \theta_0))\,dt
-\end{align} 
+\end{align}
 where $\mathcal L_{\tilde f}v:=\frac{\partial v}{\partial t}+\nabla_x v \cdot \tilde f$.
 \par
  By definition, the following equalities hold
@@ -63,7 +63,7 @@ Now, we formulate the primal problem as described in [Henrion]
 	&&\mu_T=&\,\delta_0\otimes\mu_0\otimes \mu_\theta+\mathcal L_{\tilde f}'\mu&\\
 	&& \mu_0+\hat\mu_0=&\,\lambda
 \end{flalign}
-The dual to the above primal is 
+The dual to the above primal is
 \begin{flalign}
 \inf \ip{\lambda,w}\\
 && w\ge &\,0&\\
@@ -175,7 +175,7 @@ only this time, $\mu_T\in \mathcal M(\mathcal X\times \Theta)$ as opposed to the
 	&& \mu_0+\hat\mu_0=&\,\lambda\\
 	&& \alpha\ip{\mu_{T_1}+\mu_{T_2},1}+r=&\,\ip{\mu_{T_1},1}
 \end{flalign}
-where $\mu_{T_1}\in \mathcal M(\mathcal X_T\times \Theta), \mu_{T_2}\in \mathcal M(\mathcal X\backslash \mathcal X_T\times \Theta),\mu_0,\hat \mu_0\in \mathcal M(\mathcal X)$ and $r\in \R_{\ge 0}$.\\ 
+where $\mu_{T_1}\in \mathcal M(\mathcal X_T\times \Theta), \mu_{T_2}\in \mathcal M(\mathcal X\backslash \mathcal X_T\times \Theta),\mu_0,\hat \mu_0\in \mathcal M(\mathcal X)$ and $r\in \R_{\ge 0}$.\\
 The dual to the above reads as follows
 \begin{flalign}
 \inf \ip{\lambda,w}\\
@@ -186,9 +186,9 @@ The dual to the above reads as follows
 && w-1-\int_\Theta v(0,\cdot,\theta)\,d\mu_\theta(\theta)\ge &\,0 & \forall x\in \mathcal X
 \end{flalign}
 where $v\in C^1(T\times \mathcal X\times \Theta)$, $w\in C(\mathcal X)$ and $q\in \R_{\ge 0}$.\par
-Approximation of the set of initial conditions which reach $\mathcal X_T$, 
+Approximation of the set of initial conditions which reach $\mathcal X_T$,
 $$S_1=\{x\mid w(x)\ge 1+q(1-\alpha)\}$$
-Approximation of the set of initial conditions which do not reach $\mathcal X_T$, 
+Approximation of the set of initial conditions which do not reach $\mathcal X_T$,
 $$S_2=\{x\mid w(x)\ge 1-q\alpha\}$$
 Now, since $q\in \R_{\ge 0}$, it follows that $S_1\subset S_2$ and hence set of initial conditions of interest (BRS) to us is contained in $S_2$.
 
@@ -222,7 +222,7 @@ where $J$ is the Jacobian determinant of $R$.
 %$$\mathcal G^*=\{(x,\theta)\mid \exists y\in \pi_{x}\mathcal G,\,x=R(y),\,\theta\in \Theta\}$$
 %$$\mathcal G^{**}=\{x\mid \exists \theta\in \Theta,\,(x,\theta)\in \mathcal G\}$$
 %\par
-%The corresponding dual is 
+%The corresponding dual is
 %\begin{flalign}
 %\inf \ip{\lambda,w}\\
 %&& w\ge &\,0&\\
@@ -242,12 +242,12 @@ Consider the primal
 	&\\
 	&& \int_{\mathcal T\times \mathcal G^*}p(t,x)\,d\mu^{G*}=&\,\int_{\mathcal T\times \mathcal G} p(t,R(x))\cdot J(x)\,d\mu^G\\
 	&& \int_{\mathcal X}w(x)\,d\mu_0+\int_{\mathcal X}w(x)\,d\hat\mu_0=&\,\int_{\mathcal X}w(x)\,d\lambda\\
-	&& \int_{\mathcal X_T} 1\,d\mu_T=&\,\int_{\mathcal X}1\,d\mu_0
+	&& \int_{\mathcal X_T\times \Theta} 1\,d\mu_T=&\,\int_{\mathcal X}1\,d\mu_0
 \end{flalign}
 where $$\mathcal G=\{(x,\theta)\mid g(x,\theta)=0,\,\forall \theta\in \Theta,\,x\in \mathcal X\}$$
 $$\mathcal G^*=\{R(x)\mid \exists \theta\in \Theta,\,(x,\theta)\in \mathcal G\}$$
 \par
-The corresponding dual is 
+The corresponding dual is
 \begin{flalign}
 \inf \ip{\lambda,w}\\
 && w\ge &\,0&\\
@@ -257,7 +257,7 @@ The corresponding dual is
 && v(t,x,\theta)-J(x)\int_\Theta v(t,R(x),\theta)\,d\mu_\theta\ge &\,0,&\,\forall t\in \mathcal T, \forall (x,\theta)\in \mathcal G
 \end{flalign}
 where $q\in \R$, $v\in C^1(\mathcal T\times \mathcal X\times \Theta)$ and $w\in C(\mathcal X)$.\par
-Now consider a sequence of $n-1$ switches occurring at times in $\tau_1,\,\cdots,\,\tau_{n-1}$ with $\tau_{n-1}=T$ and a corresponding sequence of disturbances $(\theta)_n$. After the $n-1$ th switch, a feasible trajectory is assumed to reach the terminal set. From the constraints to the dual problem, for any initial condition $x_0$ that reaches the terminal set, 
+Now consider a sequence of $n-1$ switches occurring at times in $\tau_1,\,\cdots,\,\tau_{n-1}$ with $\tau_{n-1}=T$ and a corresponding sequence of disturbances $(\theta)_n$. After the $n-1$ th switch, a feasible trajectory is assumed to reach the terminal set. From the constraints to the dual problem, for any initial condition $x_0$ that reaches the terminal set,
 \begin{align}
 -q\le&\, v(T,x(T),\theta_n)=v(\tau_{n-1},R(x(\tau_{n-1}),\theta_n)+\int_{\tau_{n-1}}^T \mathcal L_{\tilde f} v \,dt\\
 \le&\, v(\tau_{n-1},R(x(\tau_{n-1}),\theta_n)\label{eqn:pivot}\\
@@ -268,5 +268,5 @@ Now consider a sequence of $n-1$ switches occurring at times in $\tau_1,\,\cdots
 \end{align}
 where each subsequent inequality following Eqn.~(\ref{eqn:pivot}) is attained by integrating the left and right hand sides with respect to $\theta$.\par
 For applications in which the reset map is linear, the Jacobian determinant is independent of $x$ and hence an outer approximation of the BRS is the set
-$$\{x\mid w(x)\ge 1+q(J^{n-1}-1)\}$$
+$$\{x\mid w(x)\ge 1-q(J^{n-1}-1)\}$$
 \end{document}
